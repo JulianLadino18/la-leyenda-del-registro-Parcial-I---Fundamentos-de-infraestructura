@@ -322,7 +322,8 @@ Estos se validan por separado ya que se requiere estos atributos en momentos dis
 **4.** ¿Qué significa `equ $ - etiqueta` y por qué es útil en vez de contar los bytes a mano?
 
 [RESOLVER AQUÍ: ]
-Esta es uan manera de guradar valores en memoria sin especificar cuanto espacio se va a utilizar, este automaticamente cuenta los bytes de la informacion que se va a guardar en `etiqueta` y asi no hace falta especificar y contar los bytes manualmente. De esta manera cuando se quiera cambiar el valor de la variable por alguno mas corto o mas largo (En cantidad de bytes) este asigna automaticamente el espacio en memoria
+Esta es una manera de guardar valores en memoria sin especificar cuanto espacio se va a utilizar, este automaticamente cuenta los bytes de la informacion que se va a guardar en `etiqueta` y asi no hace falta especificar y contar los bytes manualmente. De esta manera cuando se quiera cambiar el valor de la variable por alguno mas corto o mas largo (En cantidad de bytes) este asigna automaticamente el espacio en memoria
+
 ---
 
 ## B.6 — Escribe el código (5 pts)
