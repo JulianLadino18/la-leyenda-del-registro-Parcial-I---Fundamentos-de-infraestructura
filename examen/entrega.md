@@ -249,13 +249,22 @@ len_sin_fuerza equ $ - sin_fuerza_msg
 
 ```
 
-
-
 **Salida completa con FUE=0, AGI=3:**
 
 ```
 
-
+LA LEYENDA DEL REGISTRO v0.3
+Tienes 9 puntos para repartir. El resto se vuelve vida (VID).
+FUE (fuerza, 0 a 9): 0
+AGI (agilidad, 0 a 9): 4
+Un heroe sin fuerza no es heroe.
+El heroe despierta como ELITE del reino.
+FUE: 0
+AGI: 4
+VID: 5
+Puntos gastados: 4
+Nivel: 1
+Los atributos quedaron grabados en los registros del heroe.
 
 ```
 
@@ -265,15 +274,13 @@ len_sin_fuerza equ $ - sin_fuerza_msg
 
 ```
 
-
+0
 
 ```
 
 
 
 ---
-
-
 
 # A.4 — Crear desde cero (`heroe.asm`)
 
