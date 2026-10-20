@@ -192,6 +192,13 @@ strace -e trace=read,write ./clase02
 | 5       | `x`   | 5     | Novato                           | 0                               |
 |------|-----|-----|-------------------------|----------------------|
 
+| Caso | FUE | AGI | ¿ELITE o NOVATO o ERROR? | Código salida (`$?`) |
+|------|-----|-----|--------------------------|----------------------|
+| 1    | 3   | 5   | Elite   | 0   |
+| 2    | 0   | 9   | Elite   | 0   |
+| 3    | 9   | 9   | Error   | 1   |
+| 4    | 0   | 0   | Novato   | 0   |
+| 5    | `x` | 5   | Novato   | 0   |
 
 ## A.3.2 strace (FUE=8, AGI=2)
 
