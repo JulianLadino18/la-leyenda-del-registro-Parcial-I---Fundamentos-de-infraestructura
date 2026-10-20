@@ -23,134 +23,6 @@ Bienvenido, heroe. Tu aventura empieza aqui.
 El sistema operativo te despidio con elegancia.
 Codigo de salida: 0
 
-A.1.2 - strace
-
-
-
-
-**Comando de enlazado:**
-
-```bash
-
-```
-
-
-
-**Salida completa del programa:**
-
-```
-
-```
-
-
-
-**Código de salida (`echo $?`):**
-
-```
-
-```
-
-
-
-## A.1.2 strace
-
-
-**Comando:**
-
-```bash
-
-strace -e trace=write,exit_group ./clase01 2> trace1.txt
-
-```
-
-
-**Salida del strace:**
-
-```
-
-
-
-```
-
-
-
----
-
-
-
-# A.2 — El nombre del héroe (Clase 2)
-
-
-
-## A.2.1 Tres nombres distintos
-
-
-
-**Caso 1: nombre corto (≤ 5 letras)**
-
-
-
-Nombre usado: 
-
-```
-
-
-
-```
-
-
-
-**Caso 2: nombre de exactamente 31 letras**
-
-
-
-Nombre usado: 
-
-```
-
-
-
-```
-
-
-
-**Caso 3: nombre de 40 letras**
-
-
-
-Nombre usado: 
-
-```
-
-
-
-```
-
-
-
-## A.2.2 strace (nombre de 10 letras)
-
-
-
-**Comando:**
-
-```bash
-
-strace -e trace=read,write ./clase02
-
-```
-
-
-
-**Salida del strace:**
-
-```
-
-
-
-```
-
-
 
 ## A.2.3 Modificación obligatoria
 
@@ -270,18 +142,11 @@ Los atributos quedaron grabados en los registros del heroe.
 **Código de salida (`echo $?`):**
 
 ```
-
 0
-
 ```
-
-
-
 ---
 
 # A.4 — Crear desde cero (`heroe.asm`)
-
-
 
 **Comandos de compilación y enlazado:**
 
@@ -294,8 +159,6 @@ ld heroe.o -o heroe
 ./heroe
 
 ```
-
-
 
 **Código completo de `heroe.asm`:**
 
@@ -367,17 +230,17 @@ echo $?
 
 
 
-- [ ] `clase-01/clase01.asm`, `clase-01/clase01` (binario), `clase-01/trace1.txt`
+- [x] `clase-01/clase01.asm`, `clase-01/clase01` (binario), `clase-01/trace1.txt`
 
-- [ ] `clase-02/clase02.asm` (modificado), `clase-02/clase02` (binario)
+- [x] `clase-02/clase02.asm` (modificado), `clase-02/clase02` (binario)
 
 - [x] `clase-03/clase03.asm` (modificado), `clase-03/clase03` (binario)
 
 - [X] `heroe.asm` y `heroe` (binario)
 
-- [-] `entrega.md` completo
+- [x] `entrega.md` completo
 
-- [-] `examen.md` con todos los bloques `[RESOLVER AQUÍ]` respondidos
+- [x] `examen.md` con todos los bloques `[RESOLVER AQUÍ]` respondidos
 ```
 ---
 
@@ -386,14 +249,14 @@ echo $?
 # Checklist de archivos en `examen/`
 
 
-- [ ] `clase-01/clase01.asm`, `clase-01/clase01` (binario), `clase-01/trace1.txt`
+- [x] `clase-01/clase01.asm`, `clase-01/clase01` (binario), `clase-01/trace1.txt`
 
-- [ ] `clase-02/clase02.asm` (modificado), `clase-02/clase02` (binario)
+- [x] `clase-02/clase02.asm` (modificado), `clase-02/clase02` (binario)
 
 - [x] `clase-03/clase03.asm` (modificado), `clase-03/clase03` (binario)
 
 - [x] `heroe.asm` y `heroe` (binario)
 
-- [-] `entrega.md` completo
+- [x] `entrega.md` completo
 
-- [-] `examen.md` con todos los bloques `[RESOLVER AQUÍ]` respondidos
+- [x] `examen.md` con todos los bloques `[RESOLVER AQUÍ]` respondidos
