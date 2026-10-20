@@ -96,6 +96,7 @@ Compila la clase 3 y ejecútala con las **cinco** combinaciones de (FUE, AGI) de
 > Caso 5: en lugar de un dígito, escribe la letra `x`.
 
 [RESOLVER AQUÍ: ¿Qué hace el programa con la letra `x`? ¿Por qué no se rompe?]
+El programa interpreta cualquier valor que no sea un digito como un 0, esto causa que el programa no tenga que romperse y resultar en error. En el caso 5, `FUE` automaticamente resulta en 0 y los puntos de vida en 4
 
 ### A.3.2 (6 pts)
 Con `strace -e trace=write,read,exit_group ./clase03`, usando FUE=8, AGI=2 (pega el `strace` en `entrega.md`), responde:
@@ -105,6 +106,17 @@ Con `strace -e trace=write,read,exit_group ./clase03`, usando FUE=8, AGI=2 (pega
 3. ¿Por qué `read` devuelve siempre `2` y no `1`?
 
 [RESOLVER AQUÍ: ]
+Utilizando FUE = 8 y AGI = 2
+1. Hay 5 llamadas `write`
+    I.      LA LEYENDA DEL REGISTRO v0.3
+    II.     Tienes 9 puntos para repartir. El resto se vuelve vida (VID).
+    III.    FUE (fuerza, 0 a 9): 
+    IV.     AGI (agilidad, 0 a 9):
+    V.      Error: no te alcanzan los 9 puntos.
+
+2. Hay 2 llamada del tipo `read` las cuales fueron para introducir los valores de FUE (8) y AGI (2)
+
+3. Read siempre devuelve el valor de 2, ya que es la cantidad de bytes que ocupa en memoria, el digito introducido y el salto de linea. Por ejemplo:`"8\n"`
 
 ### A.3.3 (6 pts) — Modificación obligatoria
 Implementa el **Ejercicio 1** de la clase 3 ("El heroe se enfada"): si FUE es 0, muestra la frase

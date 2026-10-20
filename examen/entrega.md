@@ -185,76 +185,15 @@ strace -e trace=read,write ./clase02
 | Caso | FUE | AGI | ¿ELITE, NOVATO o ERROR? | Código salida (`$?`) |
 
 |------|-----|-----|-------------------------|----------------------|
-
-| 1    | 3   | 5   |                         |                      |
-
-| 2    | 0   | 9   |                         |                      |
-
-| 3    | 9   | 9   |                         |                      |
-
-| 4    | 0   | 0   |                         |                      |
-
-| 5    | `x` | 5   |                         |                      |
-
-
-
-**Salidas reales de cada caso:**
-
-
-
-Caso 1:
-
-```
-
-
-
-```
-
-
-
-Caso 2:
-
-```
-
-
-
-```
-
-
-
-Caso 3:
-
-```
-
-
-
-```
-
-
-
-Caso 4:
-
-```
-
-
-
-```
-
-
-
-Caso 5:
-
-```
-
-
-
-```
-
+| 1       | 3     | 5     | Elite                               | 0                               |
+| 2       | 0     | 9     | Elite                               | 0                               |
+| 3       | 9     | 9     | Error                             | 1                               |
+| 4       | 0     | 0     | Novato                            | 0                               |
+| 5       | `x`   | 5     | Novato                           | 0                               |
+|------|-----|-----|-------------------------|----------------------|
 
 
 ## A.3.2 strace (FUE=8, AGI=2)
-
-
 
 **Comando:**
 
@@ -264,16 +203,25 @@ strace -e trace=write,read,exit_group ./clase03
 
 ```
 
-
-
 **Salida del strace:**
 
 ```
-
+write(1, "LA LEYENDA DEL REGISTRO v0.3\n", 29LA LEYENDA DEL REGISTRO v0.3
+) = 29
+write(1, "Tienes 9 puntos para repartir. E"..., 62Tienes 9 puntos para repartir. El resto se vuelve vida (VID).
+) = 62
+write(1, "FUE (fuerza, 0 a 9): ", 21FUE (fuerza, 0 a 9): )   = 21
+read(08
+, "8\n", 2)                       = 2
+write(1, "AGI (agilidad, 0 a 9): ", 23AGI (agilidad, 0 a 9): ) = 23
+read(02
+, "2\n", 2)                       = 2
+write(1, "Error: no te alcanzan los 9 punt"..., 36Error: no te alcanzan los 9 puntos.
+) = 36
++++ exited with 1 +++
 
 
 ```
-
 
 
 ## A.3.3 Modificación obligatoria: Ejercicio 1 (`.sin_fuerza`)
@@ -283,8 +231,26 @@ strace -e trace=write,read,exit_group ./clase03
 **Líneas agregadas:**
 
 ```asm
+section .data
+ sin_fuerza_msg db "Un heroe sin fuerza no es heroe.", 10 
+len_sin_fuerza equ $ - sin_fuerza_msg
 
+.puntos_ok:
+    cmp byte [v_fue], 0
+    je .sin_fuerza
+    jmp .fin_sin_fuerza
 
+.sin_fuerza:
+    mov rax, 1
+    mov rdi, 1
+    mov rsi, sin_fuerza_msg
+    mov rdx, len_sin_fuerza
+    syscall
+
+.fin_sin_fuerza:
+    mov al, 9
+    sub al, [v_used]
+    mov [v_vid], al
 
 ```
 

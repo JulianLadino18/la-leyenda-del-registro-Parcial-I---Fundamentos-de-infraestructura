@@ -49,6 +49,8 @@ section .data
     len_elite equ $ - elite
     novato    db "El heroe sigue siendo NOVATO: hay margen para crecer.", 10
     len_novato equ $ - novato
+    sin_fuerza_msg db "Un heroe sin fuerza no es heroe.", 10
+    len_sin_fuerza equ $ - sin_fuerza_msg
     error     db "Error: no te alcanzan los 9 puntos.", 10
     len_error equ $ - error
     final     db "Los atributos quedaron grabados en los registros del heroe.", 10
@@ -166,6 +168,11 @@ _start:
     syscall
 
 .puntos_ok:
+    ; Ejercicio 1: 
+    cmp byte [v_fue], 0
+    je .sin_fuerza
+    jmp .fin_sin_fuerza
+
     ; ---------- Accion 9: RESTAR para obtener la vida ----------
     ; VID = 9 - used. Lo que no se gasta, se vuelve vida.
     mov al, 9
@@ -183,6 +190,19 @@ _start:
     mov rdx, len_novato
     syscall
     jmp .fin_nivel
+
+.sin_fuerza:
+    mov rax, 1
+    mov rdi, 1
+    mov rsi, sin_fuerza_msg
+    mov rdx, len_sin_fuerza
+    syscall
+
+.fin_sin_fuerza:
+    mov al, 9
+    sub al, [v_used]
+    mov [v_vid], al
+
 .elite:
     inc byte [v_nivel]
     mov rax, 1
