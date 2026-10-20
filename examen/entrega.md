@@ -374,37 +374,14 @@ echo $?
 
 - [ ] `clase-02/clase02.asm` (modificado), `clase-02/clase02` (binario)
 
-- [ ] `clase-03/clase03.asm` (modificado), `clase-03/clase03` (binario)
+- [x] `clase-03/clase03.asm` (modificado), `clase-03/clase03` (binario)
 
 - [X] `heroe.asm` y `heroe` (binario)
 
 - [-] `entrega.md` completo
 
-- [ ] `examen.md` con todos los bloques `[RESOLVER AQUÍ]` respondidos
+- [-] `examen.md` con todos los bloques `[RESOLVER AQUÍ]` respondidos
 ```
-
-
-
-**Salida al ejecutar con el nombre `Sauron`:**
-
-```
-
-
-
-```
-
-
-
-**Código de salida (`echo $?`):**
-
-```
-
-
-
-```
-
-
-
 ---
 
 
@@ -412,15 +389,14 @@ echo $?
 # Checklist de archivos en `examen/`
 
 
-
 - [ ] `clase-01/clase01.asm`, `clase-01/clase01` (binario), `clase-01/trace1.txt`
 
 - [ ] `clase-02/clase02.asm` (modificado), `clase-02/clase02` (binario)
 
-- [ ] `clase-03/clase03.asm` (modificado), `clase-03/clase03` (binario)
+- [x] `clase-03/clase03.asm` (modificado), `clase-03/clase03` (binario)
 
-- [ ] `heroe.asm` y `heroe` (binario)
+- [x] `heroe.asm` y `heroe` (binario)
 
-- [ ] `entrega.md` completo
+- [-] `entrega.md` completo
 
-- [ ] `examen.md` con todos los bloques `[RESOLVER AQUÍ]` respondidos
+- [-] `examen.md` con todos los bloques `[RESOLVER AQUÍ]` respondidos
