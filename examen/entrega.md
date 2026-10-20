@@ -1,6 +1,6 @@
 # Entrega.md
 
-**Integrantes:** Esteban, Tomás, Julián
+**Integrantes:** Esteban Aristizabal y  Julián Ladino
 
 **Asignatura:** Fundamentos de Infraestructura
 
@@ -14,11 +14,17 @@
 ## A.1.1 Compilación y ejecución
 
 
-**Comando de compilación:**
+nasm -f elf64 clase01.asm -o clase01.o # ensamblar
+ld clase01.o -o clase01 # enlazar
+./clase01
+echo $?
+LA LEYENDA DEL REGISTRO v0.1
+Bienvenido, heroe. Tu aventura empieza aqui.
+El sistema operativo te despidio con elegancia.
+Codigo de salida: 0
 
-```bash
+A.1.2 - strace
 
-```
 
 
 
@@ -149,36 +155,27 @@ strace -e trace=read,write ./clase02
 ## A.2.3 Modificación obligatoria
 
 
-
-**Bloque `.data` modificado:**
-
-```asm
-
-
-
-```
-
-
-
-**Salida con el nombre `Gandalf`:**
-
-```
-
-
-
-```
-
-
-
----
-
+section .data
+titulo db "LA LEYENDA DEL REGISTRO v0.2", 10
+len_titulo equ $ - titulo
+pregunta db "Como se llama el heroe? (max 31 letras)", 10
+len_pregunta equ $ - pregunta
+saludo db "Que los dioses del reino te guien, heroe "
+len_saludo equ $ - saludo
+despedida db "Que tu leyenda nunca se borre del registro.", 10
+len_despedida equ $ - despedida
+salto db 10 ; un salto de linea suelto Salida con el nombre Gandalf:
+LA LEYENDA DEL REGISTRO v0.2
+Como se llama el heroe? (max 31 letras)
+Que los dioses del reino te guien, heroe Gandalf
+Que tu leyenda nunca se borre del registro.
 
 
 # A.3 — Los atributos del héroe (Clase 3)
 
 
 
-## A.3.1 Tabla de las cinco combinaciones
+## A.3.1 Tabla [examen.md](examen.md)de las cinco combinaciones
 
 | Caso | FUE | AGI | ¿ELITE o NOVATO o ERROR? | Código salida (`$?`) |
 |------|-----|-----|--------------------------|----------------------|

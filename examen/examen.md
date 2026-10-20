@@ -46,6 +46,16 @@ Ejecuta `strace -e trace=write,exit_group ./clase01 2> trace1.txt` y responde (p
 
 [RESOLVER AQUÍ: ]
 
+strace -e trace=write,exit_group ./clase01 2> trace1.txt
+write(1, "LA LEYENDA DEL REGISTRO v0.1\n", 29) = 29
+write(1, "Bienvenido, heroe. Tu aventura e"..., 45) = 45
+write(1, "El sistema operativo te despidio"..., 60) = 60
++++ exited with 0 +++
+
+1. Hay 3 llamadas write (titulo, bienvenida, despedida).
+2. El codigo de salida es 0. El programa termina con mov rax, 60 (sys_exit), no con exit_group (231); por eso el filtro no muestra ninguna linea exit_group y strace solo informa +++ exited with 0 +++.
+3. write es la syscall numero 1 ya que se carga en rax con mov rax, 1.
+
 ---
 
 ## A.2 — El nombre del héroe (Clase 2) — 15 pts
@@ -61,6 +71,34 @@ Documenta la salida de cada caso en `entrega.md`.
 
 [RESOLVER AQUÍ: ¿Qué ocurre en el caso 3? Explica por qué, citando qué línea del `.asm` lo provoca.]
 
+Caso 1 - nombre corto: Ana
+LA LEYENDA DEL REGISTRO v0.2
+Como se llama el heroe? (max 31 letras)
+Bienvenido al reino, Ana
+Tu nombre ya vive en la memoria del proceso.
+
+Caso 2 - 31 letras
+LA LEYENDA DEL REGISTRO v0.2
+Como se llama el heroe? (max 31 letras)
+Bienvenido al reino, AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+Tu nombre ya vive en la memoria del proceso.
+
+Caso 3 - 40 letras
+LA LEYENDA DEL REGISTRO v0.2
+Como se llama el heroe? (max 31 letras)
+Bienvenido al reino, BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+Tu nombre ya vive en la memoria del proceso.
+
+Que ocurre en el caso 3: el programa no se rompe,
+pero atranca el nombre: imprime solo las primeras 32 letras. 
+La causa es la linea mov rdx, 32 de la Accion 3 (el read):
+el kernel nunca copia mas de 32 bytes al buffer nombre (resb 32),
+asi que no hay desbordamiento. Como esos 32 bytes son todos letras
+(no hay LF al final), el cmp byte [nombre + rax - 1], 10 da distinto
+y se salta el dec rax, de modo que se imprimen 32 letras (no 31).
+Las 8 letras sobrantes y el Enter quedan en el buffer de stdin;
+en una terminal real la shell las ejecutaria despues como un comando.
+En el caso 2 (31 letras + LF = 32 bytes) todo cabe y se imprimen 31 letras
 ### A.2.2 (5 pts)
 Ejecuta `strace -e trace=read,write ./clase02` con un nombre de 10 letras (pega el `strace` en `entrega.md`) y responde:
 
@@ -69,6 +107,20 @@ Ejecuta `strace -e trace=read,write ./clase02` con un nombre de 10 letras (pega 
 3. ¿En qué variable del código se guarda ese valor de retorno?
 
 [RESOLVER AQUÍ: ]
+
+strace -e trace=read,write ./clase02
+write(1, "LA LEYENDA DEL REGISTRO v0.2\n", 29) = 29
+write(1, "Como se llama el heroe? (max 31 "..., 40) = 40
+read(0, "Aragorn123\n", 32) = 11
+write(1, "Bienvenido al reino, ", 21) = 21
+write(1, "Aragorn123", 10) = 10
+write(1, "\n", 1) = 1
+write(1, "Tu nombre ya vive en la memoria "..., 45) = 45
++++ exited with 0 +++
+
+1. read devuelve 11 bytes (10 letras + el LF del Enter).
+2. Porque 32 es solo el maximo que se le permite leer, read devuelve cuantos bytes habia realmente disponibles (lo que el usuario escribio hasta el Enter).
+3. En la variable lon (mov [lon], rax, de resq 1 en .bss). Luego se decrementa a 10 al quitar el LF con dec rax y se vuelve a guardar en lon.
 
 ### A.2.3 (5 pts) — Modificación obligatoria
 En tu copia de `clase02.asm`, cambia **dos** cosas y haz que siga compilando y ejecutando:
@@ -216,27 +268,30 @@ Compílalo con `nasm -f elf64` y `ld`. Pega en `entrega.md` el código completo 
 **1.** `db` declara 8 bits (1 byte) por elemento de datos.
 [RESOLVER AQUÍ: ]
 
----
+V. db significa define byte: reserva 8 bits (1 byte) por cada elemento de datos.
+
 
 **2.** `mov rax, 60` seguido de `syscall` es la forma estándar de terminar un programa en este curso.
 [RESOLVER AQUÍ: ]
 
----
+V. En este curso  un programa se termina con sys_exit: mov rax, 60, el codigo de salida en rdi y syscall. 
+
 
 **3.** `resb 32` escribe 32 bytes de ceros en el binario.
 [RESOLVER AQUÍ: ]
 
----
+F. resb 32 solo reserva 32 bytes en .bss; no ocupan espacio en el archivo binario. El sistema los entrega inicializados en cero al cargar el programa.
 
 **4.** En clase 2, el valor de `lon` (la longitud leída) viene de un `equ` fijo calculado por el ensamblador.
 [RESOLVER AQUÍ: ]
 
----
+F. lon sale de mov [lon], rax, es decir, del valor de retorno de read en tiempo de ejecucion. El equ se usa en los textos fijos, cuyo tamaño ya se conoce al ensamblar.
+
 
 **5.** `add al, 48` convierte un dígito numérico (0–9) en su carácter ASCII imprimible.
 [RESOLVER AQUÍ: ]
 
----
+V. Los digitos '0' a '9' son los codigos ASCII 48 a 57; sumar 48 a un numero entre 0 y 9 da su caracter (3 + 48 = '3'). Solo sirve para un digito.
 
 ## B.3 — Lectura de código: predice la salida (6 pts)
 
@@ -249,7 +304,7 @@ section .data
 
 section .text
     global _start
-_start:
+_start:[README.md](README.md)
     mov rax, 1
     mov rdi, 1
     mov rsi, msg
@@ -266,7 +321,10 @@ _start:
 
 [RESOLVER AQUÍ: ]
 
----
+1. imprime HOLA seguido de un salto de linea (la cadena termina en 10).
+2. termina con codigo 3 (mov rdi, 3). Por convencion 0 es exito y cualquier valor distinto de 0 indica error o una condicion especial; aqui el 3 es arbitrario y el proceso padre puede leerlo con echo $?.
+3. hay 2 instrucciones syscall: una write y una exit.
+
 
 ## B.4 — Encuentra el error (4 pts)
 
